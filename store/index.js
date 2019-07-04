@@ -18,5 +18,21 @@ export const state = () => ({
 export const mutations = {
   newProject(state, project) {
     state.projects.push(project);
+  },
+
+  newTask(state, payload) {
+    state.projects.map(project => {
+      if (project.id == payload.id) {
+        let id = Math.random()
+          .toString(36)
+          .slice(2);
+        project.tasks.push({
+          id,
+          todo: payload.todo,
+          done: false,
+          weight: project.tasks.length + 1
+        });
+      }
+    });
   }
 };

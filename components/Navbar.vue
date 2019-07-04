@@ -9,10 +9,11 @@
       </nuxt-link>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat @click="projectDialog = !projectDialog">Create Project</v-btn>
-        <v-btn flat @click="taskDialog = !taskDialog">Create Task</v-btn>
+        <v-btn flat @click="projectDialog = !projectDialog" v-if="!isProjectPage">Create Project</v-btn>
+        <v-btn flat @click="taskDialog = !taskDialog" v-else>Create Task</v-btn>
       </v-toolbar-items>
     </v-toolbar>
+
     <v-dialog width="768" v-model="projectDialog">
       <v-card>
         <v-card-title>Create a Project</v-card-title>
@@ -34,6 +35,23 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog width="768" v-model="taskDialog">
+      <v-card>
+        <v-card-title>Create a Task</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          <v-text-field label="Task" v-model="task"></v-text-field>
+        </v-card-text>
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn flat @click="taskDialog = false">Close</v-btn>
+          <v-btn color="primary" class="grey--text text--darken-3" @click="createTask">Create Task</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </nav>
 </template>
 
@@ -41,10 +59,12 @@
 export default {
   data() {
     return {
+      isProjectPage: false,
       projectDialog: false,
       taskDialog: false,
       title: "",
-      desc: ""
+      desc: "",
+      task: ""
     };
   },
   methods: {
@@ -62,6 +82,24 @@ export default {
       this.projectDialog = false;
       this.title = "";
       this.desc = "";
+    },
+    createTask() {
+      this.$store.commit("newTask", {
+        id: this.$route.params.id,
+        todo: this.task
+      });
+
+      this.taskDialog = false;
+      this.task = "";
+    }
+  },
+  watch: {
+    $route() {
+      if (this.$route.name == "project-id") {
+        this.isProjectPage = true;
+      } else {
+        this.isProjectPage = false;
+      }
     }
   }
 };

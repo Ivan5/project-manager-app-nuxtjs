@@ -5,7 +5,7 @@
       <p>{{project.desc}}</p>
       <h3 class="headline">Tasks</h3>
       <v-list two-line>
-        <v-list-tile>
+        <v-list-tile v-for="task in project.tasks" :key="task.id" class="item">
           <v-list-tile-action>
             <v-btn fab small>
               <v-icon>keyboard_arrow_up</v-icon>
@@ -17,7 +17,7 @@
             </v-btn>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Task 1</v-list-tile-title>
+            <v-list-tile-title>{{task.todo}}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
             <v-btn flat color="warning">Remove</v-btn>
