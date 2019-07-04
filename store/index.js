@@ -15,8 +15,8 @@ export const state = () => ({
   ]
 });
 
-export const mutatiosn = {
+export const mutations = {
   newProject(state, project) {
-    console.log("New Project");
+    state.projects.push(project);
   }
 };
