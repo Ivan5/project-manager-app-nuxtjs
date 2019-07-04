@@ -1,6 +1,7 @@
 <template>
   <v-app dark>
     <v-content>
+      <Navbar />
       <v-container>
         <nuxt />
       </v-container>
@@ -9,5 +10,10 @@
 </template>
 
 <script>
-export default {};
+import Navbar from "~/components/Navbar.vue";
+export default {
+  components: {
+    Navbar
+  }
+};
 </script>
