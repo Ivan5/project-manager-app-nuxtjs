@@ -62,5 +62,53 @@ export const mutations = {
         });
       }
     });
+  },
+
+  weightUp(state, payload) {
+    state.projects.map(project => {
+      if (project.id === payload.id) {
+        project.tasks.map(task => {
+          if (task.id === payload.task.id) {
+            if (task.weight > 1) {
+              task.weight--;
+            }
+          } else if (task.weight === payload.task.weight - 1) {
+            if (task.weight < project.tasks.length) {
+              task.weight++;
+            }
+          }
+        });
+      }
+    });
+  },
+
+  weightDown(state, payload) {
+    state.projects.map(project => {
+      if (project.id === payload.id) {
+        project.tasks.map(task => {
+          if (task.id === payload.task.id) {
+            if (task.weight < project.tasks.length) {
+              task.weight++;
+            }
+          } else if (task.weight === payload.task.weight) {
+            if (task.weight > 1) {
+              task.weight--;
+            }
+          }
+        });
+      }
+    });
+  },
+
+  sortByWeight(state, id) {
+    state.projects.map(project => {
+      if (project.id === id) {
+        if (project.tasks.length > 1) {
+          project.tasks.sort((a, b) => {
+            return a.weight - b.weight;
+          });
+        }
+      }
+    });
   }
 };

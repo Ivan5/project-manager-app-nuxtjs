@@ -7,12 +7,12 @@
       <v-list two-line>
         <v-list-tile v-for="task in project.tasks" :key="task.id" class="item">
           <v-list-tile-action>
-            <v-btn fab small>
+            <v-btn fab small @click="weightUp(task)">
               <v-icon>keyboard_arrow_up</v-icon>
             </v-btn>
           </v-list-tile-action>
           <v-list-tile-action>
-            <v-btn fab small>
+            <v-btn fab small @click="weightDown(task)">
               <v-icon>keyboard_arrow_down</v-icon>
             </v-btn>
           </v-list-tile-action>
@@ -35,6 +35,7 @@
 export default {
   computed: {
     project() {
+      this.$store.commit("sortByWeight", this.$route.params.id);
       return this.$store.state.projects.find(
         p => p.id === this.$route.params.id
       );
@@ -51,6 +52,18 @@ export default {
     },
     removeTask(task) {
       this.$store.commit("removeTask", {
+        id: this.$route.params.id,
+        task: task
+      });
+    },
+    weightUp(task) {
+      this.$store.commit("weightUp", {
+        id: this.$route.params.id,
+        task: task
+      });
+    },
+    weightDown(task) {
+      this.$store.commit("weightDown", {
         id: this.$route.params.id,
         task: task
       });
