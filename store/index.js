@@ -15,6 +15,7 @@ export const state = () => ({
   ]
 });
 
+//Mutations for make a new project and make a new task in a specific project
 export const mutations = {
   newProject(state, project) {
     state.projects.push(project);
@@ -31,6 +32,18 @@ export const mutations = {
           todo: payload.todo,
           done: false,
           weight: project.tasks.length + 1
+        });
+      }
+    });
+  },
+
+  toggleDone(state, payload) {
+    state.projects.map(project => {
+      if (project.id == payload.id) {
+        project.tasks.map(task => {
+          if (task.id == payload.task.id) {
+            task.done = !task.done;
+          }
         });
       }
     });

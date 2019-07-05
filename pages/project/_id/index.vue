@@ -17,7 +17,10 @@
             </v-btn>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{task.todo}}</v-list-tile-title>
+            <v-list-tile-title
+              @click="toggleDone(task.id)"
+              :class="(task.done) ? 'done' : '' "
+            >{{task.todo}}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
             <v-btn flat color="warning">Remove</v-btn>
@@ -36,9 +39,40 @@ export default {
         p => p.id === this.$route.params.id
       );
     }
+  },
+  methods: {
+    toggleDone(id) {
+      this.$store.commit("toggleDone", {
+        id: this.$route.params.id,
+        task: {
+          id: id
+        }
+      });
+    }
   }
 };
 </script>
 
 <style>
+.done {
+  text-decoration: line-through;
+}
+
+.item {
+  border-bottom: 1px solid #555;
+  animation: fadeIn 1s linear;
+}
+
+.item:last-of-type {
+  border-bottom: none;
+}
+
+@keyframes fadeIn {
+  from {
+    background-color: rgba(255, 204, 0, 1);
+  }
+  to {
+    background-color: rgba(255, 204, 0, 0);
+  }
+}
 </style>

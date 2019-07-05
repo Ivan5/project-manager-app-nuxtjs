@@ -9,7 +9,7 @@
         </p>
         <p>
           <strong>Active Tasks:</strong>
-          {{project.tasks.filter(task => task.done ).length}}
+          {{project.tasks.filter(task => !task.done ).length}}
         </p>
         <p>
           <strong>Completed Tasks:</strong>

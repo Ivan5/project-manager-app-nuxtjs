@@ -54,7 +54,6 @@
     </v-dialog>
   </nav>
 </template>
-
 <script>
 export default {
   data() {
@@ -104,7 +103,6 @@ export default {
   }
 };
 </script>
-
 <style>
 a {
   text-decoration: none;
