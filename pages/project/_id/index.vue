@@ -23,7 +23,7 @@
             >{{task.todo}}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-btn flat color="warning">Remove</v-btn>
+            <v-btn flat color="warning" @click="removeTask(task)">Remove</v-btn>
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
@@ -47,6 +47,12 @@ export default {
         task: {
           id: id
         }
+      });
+    },
+    removeTask(task) {
+      this.$store.commit("removeTask", {
+        id: this.$route.params.id,
+        task: task
       });
     }
   }

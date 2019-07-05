@@ -47,5 +47,20 @@ export const mutations = {
         });
       }
     });
+  },
+
+  removeTask(state, payload) {
+    state.projects.map(project => {
+      if (project.id == payload.id) {
+        project.tasks = project.tasks.filter(task => {
+          if (task.id != payload.task.id) {
+            if (task.weight > payload.task.weight) {
+              task.weight--;
+            }
+            return task;
+          }
+        });
+      }
+    });
   }
 };
